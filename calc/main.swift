@@ -20,11 +20,6 @@ args.removeFirst() // remove the name of the program
 let calculator = Calculator();
 
 // Calculate the result
-let ourCheekyArgs = ["+10", "+", "-10"]
-
-let result = calculator.calculate(args:ourCheekyArgs);
+let result = calculator.calculate(args:args);
 
 print(result)
-
-//let blah = readLine();
-//print("Thanks,", blah)
