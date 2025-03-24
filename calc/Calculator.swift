@@ -55,16 +55,37 @@ class Calculator {
         return no1 / no2
     }
     
+    func modulo(no1: Int, no2: Int) -> Int {
+        return no1 % no2
+    }
+    
     func leftOrRight(_ args: [String]) -> Int {
         var tokens = args
         
-        // phase 1 - multiplications and divisions
+        // phase 1 - multiplications, division, and modulo
         var index = 0
         while index < tokens.count {
-            if tokens[index] == "*" || tokens [index] == "/"{
+            let token = tokens[index]
+                        
+            if token == "*" || token == "/" || token == "%" {
+                if (tokens.count - index == 1 && tokens.count > 1) {
+                    fatalError("Expression missing argument \(tokens[index-1]) \(tokens[index]) ? ")
+                }
+                
                 let left = Int(tokens[index - 1])!
                 let right = Int(tokens[index + 1])!
-                let result = tokens[index] == "*" ?  multiply(no1: left, no2: right) : divide(no1: left, no2: right)
+                
+                var result = 0;
+                switch token {
+                case "*":
+                    result = multiply(no1: left, no2: right)
+                case "/":
+                    result = divide(no1: left, no2: right)
+                case "%":
+                    result = modulo(no1: left, no2: right)
+                default:
+                    fatalError("Invalid operator: \(token)")
+                }
                 
                 tokens.replaceSubrange(index-1...index+1, with: [String(result)])
                 index -= 1
